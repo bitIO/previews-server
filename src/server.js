@@ -8,7 +8,7 @@ function server(opts) {
   app.register(require("fastify-cors"), {});
   app.register(require("fastify-static"), {
     prefix: "/images/", // optional: default '/'
-    root: path.join(__dirname, "images"),
+    root: path.join(__dirname, "..", "images"),
   });
 
   app.options("/api/previews", (request, reply) => {

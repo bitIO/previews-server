@@ -8,7 +8,7 @@ function prepareFolder(url) {
   if (!record) {
     put(url, {});
   }
-  const folder = resolve(__dirname, `../images/`, getHash(url));
+  const folder = resolve(__dirname, `../../images/`, getHash(url));
   if (!fs.existsSync(folder)) {
     console.log("Folder: creating", folder);
     fs.mkdirSync(folder);
@@ -18,7 +18,7 @@ function prepareFolder(url) {
 }
 
 function getFolderForUrl(url) {
-  return resolve(__dirname, `../images/`, getHash(url));
+  return resolve(__dirname, `../../images/`, getHash(url));
 }
 
 module.exports = {

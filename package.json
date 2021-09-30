@@ -1,0 +1,19 @@
+{
+  "name": "previews-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "fastify": "^3.21.6",
+    "fastify-cors": "^6.0.2",
+    "fastify-static": "^4.2.3",
+    "nanoid": "^3.1.28",
+    "pino-pretty": "^7.0.1",
+    "puppeteer": "^10.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}

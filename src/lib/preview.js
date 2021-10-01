@@ -75,9 +75,6 @@ const dimensionsDefault = [
 
 async function requestPreview(url) {
   const record = get(url);
-  // if (record.updated && record.images.length > 0) {
-  //   return record;
-  // }
   emptyFolderForUrl(url);
 
   await startBrowser();
@@ -116,6 +113,7 @@ async function requestPreview(url) {
             width: dimensions.width,
             height: dimensions.height,
           },
+          updated: new Date(),
         });
       }
     }

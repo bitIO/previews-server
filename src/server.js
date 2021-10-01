@@ -4,6 +4,8 @@ const { prepareFolder, prepareImagesFolder } = require("./lib/fs");
 const { listPreviews, requestPreview } = require("./lib/preview");
 const { startBrowser } = require("./lib/puppeteer");
 
+const { getHealth } = require("./routes/health");
+
 function server(opts) {
   const app = fastify(opts);
   app.register(require("fastify-cors"), {});
@@ -80,12 +82,7 @@ function server(opts) {
     }
   );
 
-  app.get("/api/health", (request, reply) => {
-    reply.header("Content-Type", "application/json");
-    return {
-      status: "ok",
-    };
-  });
+  app.get("/api/health", getHealth);
 
   app.get(
     "/images/:urlId/:file",

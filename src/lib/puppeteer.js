@@ -36,7 +36,15 @@ async function generateScreenshot({
   page.close();
 }
 
+async function stopBrowser() {
+  if (browser) {
+    await browser.close();
+    console.log("Browser closed");
+  }
+}
+
 module.exports = {
   startBrowser,
   generateScreenshot,
+  stopBrowser,
 };

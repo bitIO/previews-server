@@ -9,9 +9,8 @@ const { getHealth } = require("./routes/health");
 function server(opts) {
   const app = fastify(opts);
   app.register(require("fastify-cors"), {});
-  startBrowser();
-  prepareImagesFolder();
 
+  prepareImagesFolder();
   app.register(require("fastify-static"), {
     prefix: "/images/", // optional: default '/'
     root: path.join(__dirname, "..", "images"),

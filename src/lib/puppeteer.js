@@ -39,7 +39,10 @@ async function generateScreenshot({
 async function stopBrowser() {
   if (browser) {
     await browser.close();
+    browser = undefined;
     console.log("Browser closed");
+  } else {
+    console.log("No browser to close");
   }
 }
 

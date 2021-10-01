@@ -1,5 +1,5 @@
 const { get, put } = require("./database");
-const { getFolderForUrl } = require("./fs");
+const { emptyFolderForUrl, getFolderForUrl } = require("./fs");
 const {
   startBrowser,
   generateScreenshot,
@@ -74,9 +74,10 @@ const dimensionsDefault = [
 
 async function requestPreview(url) {
   const record = get(url);
-  if (record.updated && record.images.length > 0) {
-    return record;
-  }
+  // if (record.updated && record.images.length > 0) {
+  //   return record;
+  // }
+  emptyFolderForUrl(url);
 
   await startBrowser();
 
@@ -115,6 +116,18 @@ async function requestPreview(url) {
   );
   await Promise.all(promises);
   await stopBrowser();
+
+  record.images = record.images.sort((a, b) => {
+    if (a.deviceName > b.deviceName) {
+      return 1;
+    } else if (a.deviceName < b.deviceName) {
+      return -1;
+    } else if (a.width > b.width) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
 
   put({ url, ...record });
   return get(url);

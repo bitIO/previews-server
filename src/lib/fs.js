@@ -21,7 +21,18 @@ function getFolderForUrl(url) {
   return resolve(__dirname, `../../images/`, getHash(url));
 }
 
+function emptyFolderForUrl(url) {
+  const folder = getFolderForUrl(url);
+  console.log("Cleaning folder:", folder);
+  const files = fs.readdirSync(folder);
+  files.forEach((file) => {
+    console.log("\t", `x ${file}`);
+    fs.unlinkSync(resolve(folder, file));
+  });
+}
+
 module.exports = {
+  emptyFolderForUrl,
   getFolderForUrl,
   prepareFolder,
 };

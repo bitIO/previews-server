@@ -7,7 +7,7 @@ function prepareImagesFolder(folderName = "images") {
   const folder = join(__dirname, "../..", folderName);
   console.log("Preparing images folder", folder);
   if (!fs.existsSync(folder)) {
-    console.log("Folder does not exist. Creating:", fodler);
+    console.log("Folder does not exist. Creating:", folder);
     fs.mkdirSync(folder, { recursive: true });
   }
 }

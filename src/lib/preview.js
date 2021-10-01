@@ -1,3 +1,4 @@
+const sizeOf = require("image-size");
 const { get, put } = require("./database");
 const { emptyFolderForUrl, getFolderForUrl } = require("./fs");
 const {
@@ -103,6 +104,7 @@ async function requestPreview(url) {
         (item) => item.path === `/images/${pathRelative}`
       );
       if (!entry) {
+        const dimensions = sizeOf(path);
         record.images.push({
           deviceName,
           height,
@@ -110,6 +112,10 @@ async function requestPreview(url) {
           isMobile,
           path: `/images/${pathRelative}`,
           width,
+          size: {
+            width: dimensions.width,
+            height: dimensions.height,
+          },
         });
       }
     }

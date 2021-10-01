@@ -78,6 +78,13 @@ function server(opts) {
     }
   );
 
+  app.get("/api/health", (request, reply) => {
+    reply.header("Content-Type", "application/json");
+    return {
+      status: "ok",
+    };
+  });
+
   app.get(
     "/images/:urlId/:file",
     {

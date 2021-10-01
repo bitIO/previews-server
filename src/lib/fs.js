@@ -1,7 +1,16 @@
 const fs = require("fs");
-const { resolve } = require("path");
+const { join, resolve } = require("path");
 const { getHash } = require("./crypto");
 const { get, put } = require("./database");
+
+function prepareImagesFolder(folderName = "images") {
+  const folder = join(__dirname, "../..", folderName);
+  console.log("Preparing images folder", folder);
+  if (!fs.existsSync(folder)) {
+    console.log("Folder does not exist. Creating:", fodler);
+    fs.mkdirSync(folder, { recursive: true });
+  }
+}
 
 function prepareFolder(url) {
   const record = get(url);
@@ -35,4 +44,5 @@ module.exports = {
   emptyFolderForUrl,
   getFolderForUrl,
   prepareFolder,
+  prepareImagesFolder,
 };

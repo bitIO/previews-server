@@ -1,11 +1,13 @@
 const fastify = require("fastify");
 const path = require("path");
-const { prepareFolder } = require("./lib/fs");
+const { prepareFolder, prepareImagesFolder } = require("./lib/fs");
 const { listPreviews, requestPreview } = require("./lib/preview");
 
 function server(opts) {
   const app = fastify(opts);
   app.register(require("fastify-cors"), {});
+
+  prepareImagesFolder();
   app.register(require("fastify-static"), {
     prefix: "/images/", // optional: default '/'
     root: path.join(__dirname, "..", "images"),

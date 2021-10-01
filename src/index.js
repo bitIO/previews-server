@@ -9,7 +9,7 @@ async function start() {
     },
   });
   try {
-    await app.listen(3001);
+    await app.listen(process.env.PORT || 3001, "0.0.0.0");
   } catch (err) {
     app.log.error(err);
     process.exit(1);

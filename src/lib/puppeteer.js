@@ -4,7 +4,11 @@ let browser;
 
 async function startBrowser() {
   if (!browser) {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    console.log("Puppeteer browser ready!");
   }
 }
 
@@ -29,17 +33,10 @@ async function generateScreenshot({
     fullPage: fullPage || true,
     captureBeyondViewport: captureBeyondViewport || true,
   });
-}
-
-async function stopBrowser() {
-  if (browser) {
-    await browser.close();
-    browser = undefined;
-  }
+  page.close();
 }
 
 module.exports = {
   startBrowser,
   generateScreenshot,
-  stopBrowser,
 };

@@ -1,11 +1,7 @@
 const sizeOf = require("image-size");
 const { get, put } = require("./database");
 const { emptyFolderForUrl, getFolderForUrl } = require("./fs");
-const {
-  startBrowser,
-  generateScreenshot,
-  stopBrowser,
-} = require("./puppeteer");
+const { generateScreenshot } = require("./puppeteer");
 
 const dimensionsDefault = [
   {
@@ -77,8 +73,6 @@ async function requestPreview(url) {
   const record = get(url);
   emptyFolderForUrl(url);
 
-  await startBrowser();
-
   const folder = getFolderForUrl(url);
   const promises = dimensionsDefault.map(
     async ({ deviceName, height, isLandscape, isMobile, width }) => {
@@ -119,7 +113,6 @@ async function requestPreview(url) {
     }
   );
   await Promise.all(promises);
-  await stopBrowser();
 
   record.images = record.images.sort((a, b) => {
     if (a.deviceName > b.deviceName) {

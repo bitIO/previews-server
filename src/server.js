@@ -2,12 +2,14 @@ const fastify = require("fastify");
 const path = require("path");
 const { prepareFolder, prepareImagesFolder } = require("./lib/fs");
 const { listPreviews, requestPreview } = require("./lib/preview");
+const { startBrowser } = require("./lib/puppeteer");
 
 function server(opts) {
   const app = fastify(opts);
   app.register(require("fastify-cors"), {});
-
+  startBrowser();
   prepareImagesFolder();
+
   app.register(require("fastify-static"), {
     prefix: "/images/", // optional: default '/'
     root: path.join(__dirname, "..", "images"),

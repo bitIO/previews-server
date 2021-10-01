@@ -15,11 +15,20 @@ async function generateScreenshot({
   isMobile,
   isLandscape,
   path,
+  cacheEnabled,
+  fullPage,
+  captureBeyondViewport,
+  waitUntil,
 }) {
   const page = await browser.newPage();
+  await page.setCacheEnabled(cacheEnabled || false);
   await page.setViewport({ width, height, isMobile, isLandscape });
-  await page.goto(url, { waitUntil: "networkidle2" });
-  await page.screenshot({ path });
+  await page.goto(url, { waitUntil: waitUntil ? waitUntil : "networkidle0" });
+  await page.screenshot({
+    path,
+    fullPage: fullPage || true,
+    captureBeyondViewport: captureBeyondViewport || true,
+  });
 }
 
 async function stopBrowser() {

@@ -2,7 +2,6 @@ const fastify = require("fastify");
 const path = require("path");
 const { prepareFolder, prepareImagesFolder } = require("./lib/fs");
 const { listPreviews, requestPreview } = require("./lib/preview");
-const { startBrowser } = require("./lib/puppeteer");
 
 const { getHealth } = require("./routes/health");
 
@@ -26,7 +25,12 @@ function server(opts) {
     });
 
     prepareFolder(request.body.url);
-    const preview = await requestPreview(request.body.url);
+    const preview = await requestPreview(
+      request.body.url,
+      request.body.dimensions,
+      request.body.fullPage,
+      request.body.beyondViewport
+    );
 
     reply.header("Content-Type", "application/json");
     reply.send({

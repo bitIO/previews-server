@@ -73,13 +73,19 @@ const dimensionsDefault = [
   },
 ];
 
-async function requestPreview(url) {
+async function requestPreview(
+  url,
+  dimensions,
+  fullPage,
+  captureBeyondViewport
+) {
   const record = get(url);
   emptyFolderForUrl(url);
+  record.images = [];
 
   const folder = getFolderForUrl(url);
   await startBrowser();
-  const promises = dimensionsDefault.map(
+  const promises = dimensions.map(
     async ({ deviceName, height, isLandscape, isMobile, width }) => {
       const fileName = `${deviceName}-${width}x${height}${
         isMobile ? "-mobile" : ""
@@ -94,6 +100,8 @@ async function requestPreview(url) {
         isMobile,
         width,
         path,
+        fullPage,
+        captureBeyondViewport,
       });
 
       const entry = record.images.find(

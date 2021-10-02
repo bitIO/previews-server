@@ -20,9 +20,9 @@ async function generateScreenshot({
   isLandscape,
   path,
   cacheEnabled,
+  waitUntil,
   fullPage,
   captureBeyondViewport,
-  waitUntil,
 }) {
   const page = await browser.newPage();
   await page.setCacheEnabled(cacheEnabled || false);
@@ -30,8 +30,8 @@ async function generateScreenshot({
   await page.goto(url, { waitUntil: waitUntil ? waitUntil : "networkidle0" });
   await page.screenshot({
     path,
-    fullPage: fullPage || true,
-    captureBeyondViewport: captureBeyondViewport || true,
+    fullPage,
+    captureBeyondViewport,
   });
   page.close();
 }

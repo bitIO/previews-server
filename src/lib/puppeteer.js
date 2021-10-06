@@ -33,7 +33,7 @@ async function generateScreenshot({
     fullPage,
     captureBeyondViewport,
   });
-  page.close();
+  await page.close();
 }
 
 async function stopBrowser() {

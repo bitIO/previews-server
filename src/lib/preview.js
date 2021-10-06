@@ -126,7 +126,6 @@ async function requestPreview(
     }
   );
   await Promise.all(promises);
-  await stopBrowser();
 
   record.images = record.images.sort((a, b) => {
     if (a.deviceName > b.deviceName) {

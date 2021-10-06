@@ -19,10 +19,17 @@ function server(opts) {
     return { code: 204 };
   });
   app.post("/api/previews", async (request, reply) => {
-    console.log(">>> requested preview", {
-      body: request.body,
-      headers: request.headers,
-    });
+    console.log(
+      ">>> requested preview",
+      JSON.stringify(
+        {
+          body: request.body,
+          headers: request.headers,
+        },
+        null,
+        2
+      )
+    );
 
     prepareFolder(request.body.url);
     const preview = await requestPreview(
@@ -73,7 +80,7 @@ function server(opts) {
         request.query;
       reply.header("Content-Type", "application/json");
       return {
-        images: listPreviews({
+        previews: listPreviews({
           url,
           width,
           height,

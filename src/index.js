@@ -4,9 +4,7 @@ async function start() {
   const app = server({
     // https://github.com/fastify/fastify-cors/issues/20#issuecomment-835203220
     exposeHeadRoutes: true,
-    logger: {
-      prettyPrint: true,
-    },
+    logger: true,
   });
   try {
     await app.listen(process.env.PORT || 3001, "0.0.0.0");

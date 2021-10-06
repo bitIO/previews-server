@@ -1,11 +1,7 @@
 const sizeOf = require("image-size");
 const { get, put } = require("./database");
 const { emptyFolderForUrl, getFolderForUrl } = require("./fs");
-const {
-  startBrowser,
-  generateScreenshot,
-  stopBrowser,
-} = require("./puppeteer");
+const { startBrowser, generateScreenshot } = require("./puppeteer");
 
 const dimensionsDefault = [
   {
@@ -152,6 +148,45 @@ function listPreviews({
   deviceName,
 }) {
   const record = get(url);
+  console.log(
+    "listing previews",
+    JSON.stringify(
+      {
+        url,
+        width,
+        height,
+        isMobile,
+        isLandscape,
+        deviceName,
+        record,
+      },
+      null,
+      2
+    )
+  );
+
+  if (width) {
+    record.images = record.images.filter((image) => image.width === width);
+  }
+  if (height) {
+    record.images = record.images.filter((image) => image.height === height);
+  }
+  if (isMobile) {
+    record.images = record.images.filter(
+      (image) => image.isMobile === isMobile
+    );
+  }
+  if (isLandscape) {
+    record.images = record.images.filter(
+      (image) => image.isLandscape === isLandscape
+    );
+  }
+  if (deviceName) {
+    record.images = record.images.filter(
+      (image) => image.deviceName === deviceName
+    );
+  }
+
   // TODO: filter by
   return record;
 }

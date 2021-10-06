@@ -10,6 +10,7 @@ function prepareImagesFolder(folderName = "images") {
     console.log("Folder does not exist. Creating:", folder);
     fs.mkdirSync(folder, { recursive: true });
   }
+  console.log("Images folder ready");
 }
 
 function prepareFolder(url) {
